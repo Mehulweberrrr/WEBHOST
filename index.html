@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>धनकौल समाज - मिथिला की पहचान</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&display=swap">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Gloock', serif;
+    }
+    body {
+      background-color: #fff8f0;
+      color: #333;
+    }
+    header {
+      background-repeat: repeat-x;
+      padding: 20px;
+      text-align: center;
+      background-color: #f8dfc5;
+    }
+    header h1 {
+      font-size: 2.5em;
+      color: #b20000;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #ffd966;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    .nav-links a {
+      color: inherit;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: bold;
+    }
+    .nav-links a:hover {
+      color: #b20000;
+    }
+    .notification-icon {
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    .scrolling-announcement {
+      background-color: #ffe0b2;
+      color: #8d4a00;
+      padding: 8px 0;
+      font-size: 1.1em;
+      font-weight: bold;
+      white-space: nowrap;
+      overflow: hidden;
+      border-bottom: 2px solid #ffbb77;
+      border-top: 2px solid #ffbb77;
+    }
+    .scrolling-announcement marquee {
+      padding: 0 20px;
+    }
+    .hero {
+      background-color: #ffefd5;
+      text-align: center;
+      padding: 60px 20px;
+      border: 5px dashed #cc3300;
+    }
+    .hero h2 {
+      font-size: 2rem;
+      color: #d41159;
+      margin-bottom: 10px;
+    }
+    .hero button {
+      padding: 10px 20px;
+      background-color: #00897b;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    .gallery {
+      padding: 40px 20px;
+      background-color: #fff3e0;
+    }
+    .gallery h3 {
+      text-align: center;
+      color: #c21807;
+      margin-bottom: 20px;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .gallery-grid img {
+      width: 100%;
+      border: 4px solid #b22222;
+      border-radius: 10px;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      loading: lazy;
+    }
+    .video-container {
+      width: 100%;
+      border: 4px solid #b22222;
+      border-radius: 10px;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+    }
+    .video-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .upload-button {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .upload-button a {
+      text-decoration: none;
+      background-color: #ff6f00;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+    }
+    .notification-panel {
+      display: none;
+      position: absolute;
+      right: 10px;
+      top: 50px;
+      background: white;
+      border: 2px solid #c21807;
+      padding: 10px;
+      z-index: 1000;
+    }
+    .news-events {
+      padding: 40px 20px;
+      background-color: #f7f3e8;
+      text-align: center;
+    }
+    .news-events h3 {
+      color: #8b0000;
+      margin-bottom: 25px;
+      font-size: 1.8em;
+    }
+    .event-item {
+      background-color: #fffaf0;
+      border: 2px solid #ffcc66;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 15px;
+      text-align: left;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .event-item h4 {
+      color: #d45f00;
+      margin-bottom: 8px;
+      font-size: 1.3em;
+    }
+    .event-item p {
+      line-height: 1.6;
+      color: #555;
+    }
+    .history {
+      padding: 40px 20px;
+      background-color: #fcece7;
+      text-align: center;
+    }
+    .history h3 {
+      color: #a0522d;
+      margin-bottom: 25px;
+      font-size: 1.8em;
+    }
+    .history p {
+      max-width: 800px;
+      margin: 0 auto 20px auto;
+      line-height: 1.8;
+      color: #444;
+      text-align: justify;
+    }
+    .about, .contact {
+      padding: 40px 20px;
+      background-color: #fbe9e7;
+    }
+    .contact form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .contact input, .contact textarea {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #999;
+    }
+    footer {
+      text-align: center;
+      padding: 10px;
+      background-color: #ffcc80;
+    }
+    #scrollBtn {
+      display: none;
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      z-index: 1000;
+      font-size: 1.5rem;
+      background-color: #ff9800;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      transition: background-color 0.3s ease;
+    }
+    #scrollBtn:hover {
+      background-color: #e65100;
+    }
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 30px auto;
+      flex-wrap: wrap;
+      max-width: 800px;
+    }
+    .action-button {
+      padding: 12px 25px;
+      font-size: 1rem;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      text-align: center;
+      min-width: 150px;
+    }
+    .action-button:hover, .action-button:focus {
+      transform: scale(1.05);
+      outline: none;
+    }
+    .coaching-button {
+      background-color: #4caf50;
+    }
+    .coaching-button:hover, .coaching-button:focus {
+      background-color: #388e3c;
+    }
+    .shop-button {
+      background-color: #795548;
+    }
+    .shop-button:hover, .shop-button:focus {
+      background-color: #5f433f;
+    }
+    .gallery-button {
+      background-color: #9c27b0;
+    }
+    .gallery-button:hover, .gallery-button:focus {
+      background-color: #7b1fa2;
+    }
+    @media (max-width: 600px) {
+      .button-group {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+      .action-button {
+        width: 100%;
+        max-width: 300px;
+      }
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>धनकौल समाज - मिथिला की पहचान</h1>
+  </header>
+  <nav>
+    <div class="nav-links">
+      <span>🌼 Home</span>
+      <a href="#news-events">📰 News & Events</a>
+      <a href="#history">📜 History</a>
+    </div>
+    <span class="notification-icon" onclick="toggleNotification()">🔔</span>
+    <div class="notification-panel" id="notifPanel">
+      <p>🛕 मंदिर आरती मंगलवार</p>
+      <p>💧 जल योजना चालू</p>
+    </div>
+  </nav>
+  <div class="scrolling-announcement">
+    <marquee behavior="scroll" direction="left" scrollamount="5">
+      📢 **ताज़ा खबर:** गाँव में नया पुस्तकालय खुलेगा! 🧹 सफाई अभियान 22 जून 📚 छात्रवृत्ति आवेदन शुरू!
+    </marquee>
+  </div>
+  <section class="hero">
+    <h2>स्वागत है हमारे गाँव में</h2>
+    <p>Explore our beauty, culture, and community.</p>
+    <a href="https://chat.whatsapp.com/BbVpdITGXm2KG5fcG191GM" target="_blank">
+      <button>Join WhatsApp Group</button>
+    </a>
+  </section>
+  <div class="button-group">
+    <a href="coaching.html" class="action-button coaching-button" rel="noopener" aria-label="Visit Coaching Website">
+      🎓 Coaching Website
+    </a>
+    <a href="shop.html" class="action-button shop-button" rel="noopener" aria-label="Visit Shop">
+      🛍️ Shop
+    </a>
+    <a href="gallery.html" class="action-button gallery-button" rel="noopener" aria-label="View Extra Gallery">
+      🖼️ Extra Gallery
+    </a>
+  </div>
+  <section class="news-events" id="news-events">
+    <h3>ताज़ा खबरें और आगामी कार्यक्रम</h3>
+    <div class="event-item">
+      <h4>श्री श्री 108 सार्वजनिक शिव मंदिर</h4>
+      <p>मंदिर पर आरती होती है हर <strong>मंगलवार</strong></p>
+      <p><strong>समय:</strong> शाम 7:00</p>
+      <p><strong>स्थान:</strong> सार्वजनिक शिव मंदिर</p>
+    </div>
+    <div class="event-item">
+      <h4>ग्राम स्वच्छता अभियान</h4>
+      <p><strong>दिनांक:</strong> 22 जून, 2025</p>
+      <p><strong>समय:</strong> सुबह 8:00 बजे</p>
+      <p><strong>स्थान:</strong> गाँव का चौक</p>
+    </div>
+  </section>
+  <section class="gallery">
+    <h3>हमारे गाँव की झलकियाँ</h3>
+    <div class="gallery-grid">
+      <img src="3.jpg" alt="गाँव की छवि" loading="lazy">
+      <img src="20250612_103632.jpg" alt="गाँव की दूसरी छवि" loading="lazy">
+      <img src="2.jpg" alt="गाँव की तीसरी छवि" loading="lazy">
+      <div class="video-container">
+        <iframe src="https://drive.google.com/file/d/1zLY0OiMWsoT416Ed2pk6cSFORiF-ns2D/preview" title="गाँव का वीडियो 1"></iframe>
+      </div>
+      <div class="video-container">
+        <iframe src="https://drive.google.com/file/d/1XITyVKDge9KuJvV9j7fxWJMc0ip02ia4/preview" title="गाँव का वीडियो 2"></iframe>
+      </div>
+      <div class="video-container">
+        <iframe src="https://drive.google.com/file/d/1jYhLo7YwpVwWQcB54Esyqg5HGtVsUKjD/preview" title="गाँव का वीडियो 3"></iframe>
+      </div>
+    </div>
+    <div class="upload-button">
+      <a href="https://chat.whatsapp.com/BbVpdITGXm2KG5fcG191GM" target="_blank">WhatsApp पर फोटो भेजें</a>
+    </div>
+  </section>
+  <section class="history" id="history">
+    <h3>हमारे गाँव का गौरवशाली इतिहास</h3>
+    <p>धनकौल समाज की जड़ें प्राचीन मिथिला सभ्यता में गहराई से जमी हुई हैं...</p>
+    <p>हमारी परंपराएँ, जैसे कि मधुबनी पेंटिंग और लोक संगीत...</p>
+    <img src="https://i.imgur.com/example_history_image.jpg" alt="ऐतिहासिक छवि" style="width: 100%; max-width: 500px; margin-top: 20px; border-radius: 8px;">
+  </section>
+  <section class="about">
+    <h3>गाँव के बारे में</h3>
+    <p>हमारा गाँव मिथिला की सांस्कृतिक और पारंपरिक छवियों को संजोए हुए है।</p>
+  </section>
+  <section class="contact">
+    <h3>संपर्क करें</h3>
+    <form onsubmit="sendToWhatsApp(); return false;">
+      <input type="text" id="name" placeholder="आपका नाम" required />
+      <input type="text" id="phone" placeholder="WhatsApp नंबर" required />
+      <textarea id="msg" placeholder="संदेश लिखें" rows="3" required></textarea>
+      <button type="submit">WhatsApp पर भेजें</button>
+    </form>
+  </section>
+  <footer>
+    © 2025 मेरा गाँव | Design inspired by Mithila Art
+  </footer>
+  <button onclick="scrollToTop()" id="scrollBtn" title="ऊपर जाएं">⬆️</button>
+
+  <script>
+    function toggleNotification() {
+      const panel = document.getElementById("notifPanel");
+      panel.style.display = panel.style.display === "block" ? "none" : "block";
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function sendToWhatsApp() {
+      const name = document.getElementById("name").value;
+      const phone = document.getElementById("phone").value;
+      const msg = document.getElementById("msg").value;
+      const url = `https://wa.me/917520341214?text=नाम: ${name}%0Aनंबर: ${phone}%0Aसंदेश: ${msg}`;
+      window.open(url, '_blank');
+    }
+  </script>
+</body>
+</html>
